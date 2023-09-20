@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>calculator</title>
+    <style>
+        @font-face { font-family: Digital; src: url('./fonts/digital-7.ttf'); }
+
+
+        div{
+            margin: 6rem auto;
+            display: grid;
+            grid-template-columns: auto auto auto auto;
+            row-gap: 1rem;
+            column-gap: 0.5rem;
+            width: 20rem;
+            padding: 1rem;
+            background-color: #1b1818;
+            border: 1px solid black;
+            border-radius:10px;
+            box-shadow: #9ce7f1 8px 8px;
+        }
+        section{
+            font-family: Digital;
+            font-size: 2.5rem;
+            grid-column-start: 1;
+            grid-column-end: 5;
+            height: 2rem;
+            text-align: right;
+            padding: 0rem 0.5rem;
+            background-color: #9ce7f1;
+            border-radius:10px 10px 0px 0px;
+            overflow-y: hidden;
+            height: 2.5rem;
+        }
+        section::-webkit-scrollbar{
+            display: none;
+        }
+        button{
+            margin: 0px;
+            text-align: center;
+            font-size: 1.5rem;
+            padding: 0.3rem 1rem;
+            background-color: whitesmoke;
+            border-radius:10px;
+            font-weight: 700;
+        }
+        button:hover{
+            background-color: #b3b0ac;
+            cursor: pointer;
+        }
+        .sp-btn{
+            background-color: #e92b2b;
+            color: white;
+        }
+        #screenres{
+            margin-top: -1rem;
+            border-radius:0px 0px 10px 10px;
+        }
+        #eqt{
+            background-color: orange;
+            color: whitesmoke;
+            grid-column-start: 1;
+            grid-column-end: 4;
+        }
+        #eqt:hover{
+            background-color: #b3b0ac;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div>
+    <section id="screen">0</section>
+    <section id="screenres"></section>
+    <button onclick="keypress(7)">7</button><button onclick="keypress(8)">8</button><button onclick="keypress(9)">9</button><button class="sp-btn" onclick="ac()">AC</button>
+    <button onclick="keypress(4)">4</button><button onclick="keypress(5)">5</button><button onclick="keypress(6)">6</button><button onclick="keypress('/')">/</button>
+    <button onclick="keypress(1)">1</button><button onclick="keypress(2)">2</button><button onclick="keypress(3)">3</button><button onclick="keypress('*')">x</button>
+    <button onclick="keypress(0)">0</button><button onclick="keypress('.')">.</button><button onclick="keypress('+')">+</button><button onclick="keypress('-')">-</button>
+    <button onclick="eqt()" id="eqt">=</button><button class="sp-btn" onclick="del()">DEL</button>
+    </div>
+</body>
+<script>
+    function keypress(value){
+        section = document.getElementById('screen');
+        if(section.innerHTML==0){
+            section.innerHTML='';
+        }
+        section.innerHTML = section.innerHTML + value;
+        
+    }
+
+    function ac(){
+        section = document.getElementById('screen');
+        document.getElementById('screenres').innerHTML = '';
+        section.innerHTML = 0;
+    }
+
+    function del(){
+        section = document.getElementById('screen');
+        if(section.innerHTML!=0){
+            section.innerHTML = section.innerHTML.slice(0, -1);
+        }
+        if(section.innerHTML==0){
+            section.innerHTML = 0;
+            document.getElementById('screenres').innerHTML = '';
+        }
+        
+    }
+    
+    function eqt(){
+        section = document.getElementById('screen');
+        sectionres = document.getElementById('screenres');
+        try {
+            sectionres.innerHTML = eval(section.innerHTML);
+        } catch (error) {
+            section.innerHTML = 'ERROR'
+        }
+    }
+</script>
+</html>
